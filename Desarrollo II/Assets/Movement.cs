@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] int rotation = 30;
     [SerializeField] float velocity = 5;
+    [SerializeField] Transform sun;
 
 
     void Start()
@@ -18,8 +18,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation *= Quaternion.AngleAxis(rotation * Time.deltaTime, Vector3.up);
-
-        //transform.RotateAround(Vector3.zero, Vector3.right, 5 * Time.deltaTime);
+        // transform.Rotate(new Vector3(0,velocity,0) * Time.deltaTime); 
+        transform.RotateAround(sun.position, Vector3.up, velocity * Time.deltaTime);
     }
 }
