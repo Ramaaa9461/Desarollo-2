@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rotation : MonoBehaviour
 {
-    [SerializeField] int rotation = 30;
+    [SerializeField] float rotation = 1;
 
     void Start()
     {
