@@ -36,38 +36,8 @@ public class camera_movement : MonoBehaviour
         {
             case 0:
 
-
-
-
-                //Zoom de la camara segun la rueda del mouse
-
-                //Limite -11 y -60
-                if (Input.GetAxis("Mouse ScrollWheel") > 0 && cam.transform.position.z < -11f)
-                {
-                    cam.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + .4f);
-                }
-
-                if (Input.GetAxis("Mouse ScrollWheel") < 0 && cam.transform.position.z > - -60f)
-                {
-                    cam.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - .4f);
-                }
-
-
-                if (Input.GetMouseButton(0))
-                {
-                    if (resetPositionCam)
-                    {
-                        cam.transform.position = initialCamPosition;
-                    }
-                    //Rotacion de la camara segun el mouse
-
-                    x += speedH * Input.GetAxis("Mouse X");
-                    y -= speedY * Input.GetAxis("Mouse Y");
-
-                    transform.eulerAngles = new Vector3(y, x, 0.0f);
-
-                    resetPositionCam = false;
-                }
+                Zoom();
+                MoveCam();
 
                 break;
             case 1:
@@ -125,7 +95,41 @@ public class camera_movement : MonoBehaviour
         resetPositionCam = true;
 
     }
-   public void nextPlanet()
+    void MoveCam()
+    {
+        if (resetPositionCam)
+        {
+            cam.transform.position = initialCamPosition;
+            cam.transform.rotation = initialCamRotation;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            //Rotacion de la camara segun el mouse
+
+            x += speedH * Input.GetAxis("Mouse X");
+            y -= speedY * Input.GetAxis("Mouse Y");
+
+            transform.eulerAngles = new Vector3(y, x, 0.0f);
+
+            resetPositionCam = false;
+        }
+    }
+    void Zoom()
+    {
+        //Zoom de la camara segun la rueda del mouse
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && cam.transform.position.z < -11f)
+        {
+            cam.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + .4f);
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && cam.transform.position.z > -60f)
+        {
+            cam.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - .4f);
+        }
+    }
+    public void nextPlanet()
     {
         numberPlanet++;
         if (numberPlanet == 10)
@@ -133,7 +137,7 @@ public class camera_movement : MonoBehaviour
             numberPlanet = 0;
         }
     }
-   public void previousPlanet()
+    public void previousPlanet()
     {
         numberPlanet--;
         if (numberPlanet == -1)
